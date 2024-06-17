@@ -1,20 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Button, Container, Typography } from "./components/atoms";
+import { IconButton, Menu } from "./components/molecules";
+import { ThemeProvider } from "styled-components/native";
 
+const dayTheme = {
+  primary: "rgba(150, 50, 120, 1)",
+  secondary: "rgba(50, 120, 150, 1)",
+};
+const nightTheme = {
+  primary: dayTheme.secondary,
+  secondary: dayTheme.primary,
+};
 export default function App() {
+  const [night, setNight] = useState(false);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={night ? nightTheme : dayTheme}>
+      <Container.Base
+        style={{
+          width: "100vw",
+        }}
+      >
+        <Menu
+          data={[
+            { title: "home", slug: "home" },
+            { title: "profile", slug: "profile" },
+            { title: "contact", slug: "contact" },
+          ]}
+        ></Menu>
+        <IconButton.Night
+          onLikeCallback={(activated) => {
+            setNight(activated);
+          }}
+        ></IconButton.Night>
+        <IconButton.Heart
+          // color={night ? null : "red"}
+          onLikeCallback={(activated) => {}}
+        ></IconButton.Heart>
+        <Container.Centered>
+          <Typography.Title align="start">Ma super App</Typography.Title>
+          <Typography.Paragraphe align="center">
+            Quelle application de zinzin
+          </Typography.Paragraphe>
+          <StatusBar style="auto" />
+        </Container.Centered>
+      </Container.Base>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
