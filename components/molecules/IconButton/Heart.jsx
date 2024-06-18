@@ -1,31 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Icon } from "../../atoms";
-import { ThemeContext } from "styled-components/native";
-const Heart = ({ defaultActive = false, onLikeCallback = () => {}, color }) => {
-  const [activated, setActivated] = useState(defaultActive);
-  const theme = useContext(ThemeContext);
-
+const Heart = ({
+  alreadyLiked = false,
+  clickCallback = (liked) => {},
+  ...props
+}) => {
+  const [liked, setLiked] = useState(alreadyLiked);
   useEffect(() => {
-    onLikeCallback(activated);
-
-
-
-    
-
-
-  }, [activated]);
+    clickCallback(liked);
+  }, [liked]);
 
   return (
-    <Container.Base
-      onClick={() => {
-        setActivated(!activated);
+    <Container.Default
+      onClick={(e) => {
+        setLiked(!liked);
       }}
     >
       <Icon.AntDesign
-        name={activated ? "heart" : "hearto"}
-        color={color ?? theme.primary}
+        name={alreadyLiked ? "heart" : "hearto"}
+        color={alreadyLiked ? "red" : "white"}
       ></Icon.AntDesign>
-    </Container.Base>
+    </Container.Default>
   );
 };
 
