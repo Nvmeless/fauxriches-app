@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components/native";
-
+import { TranslateContext } from "../../../providers/TranslateProvider";
 const StyledTitle = styled.Text`
   display: block;
   margin-top: 0.67em;
@@ -13,7 +13,12 @@ const StyledTitle = styled.Text`
 `;
 
 const Title = (props) => {
-  return <StyledTitle style={{ fontSize: "2em" }} {...props}></StyledTitle>;
+  const translation = useContext(TranslateContext);
+  return (
+    <StyledTitle style={{ fontSize: "2em" }} {...props}>
+      {translation.hello}
+    </StyledTitle>
+  );
 };
 
 export default Title;

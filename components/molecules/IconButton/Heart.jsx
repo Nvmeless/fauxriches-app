@@ -7,12 +7,6 @@ const Heart = ({ defaultActive = false, onLikeCallback = () => {}, color }) => {
 
   useEffect(() => {
     onLikeCallback(activated);
-
-
-
-    
-
-
   }, [activated]);
 
   return (
